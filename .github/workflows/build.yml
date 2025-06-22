@@ -3,7 +3,7 @@ name: Build and Upload JAR to Release
 on:
   release:
     types: [published]  # 只有在你点击 GitHub Release 的 "Publish" 时触发
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
