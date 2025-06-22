@@ -1,7 +1,11 @@
 name: Manual Jar Release
 
 on:
-  workflow_dispatch:  # 手动触发工作流
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag name (e.g., v1.0.0)'
+        required: true
 
 jobs:
   build-and-upload:
@@ -24,6 +28,6 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: target/*.jar
-        # 自动使用当前 tag（如果已经发布了 Release）
+        tag_name: ${{ github.event.inputs.tag }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
