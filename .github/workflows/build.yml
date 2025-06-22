@@ -27,7 +27,7 @@ jobs:
     - name: Upload jar to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: target/*.jar
+        files: target/*.war
         tag_name: ${{ github.event.inputs.tag }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
