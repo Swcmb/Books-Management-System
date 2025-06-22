@@ -1,15 +1,14 @@
-name: Build and Upload JAR to Release
+name: Manual Jar Release
 
 on:
-  release:
-    types: [published]  # 只有在你点击 GitHub Release 的 "Publish" 时触发
-  workflow_dispatch:
+  workflow_dispatch:  # 手动触发工作流
+
 jobs:
-  build:
+  build-and-upload:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Set up JDK 8
@@ -21,9 +20,10 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - name: Upload jar to release
+    - name: Upload jar to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
         files: target/*.jar
+        # 自动使用当前 tag（如果已经发布了 Release）
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
